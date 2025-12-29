@@ -24,7 +24,7 @@
           ./users/bry/bry.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.users.root = import ./home.nix;
+            home-manager.users.root = import ./users/root/home.nix;
             home-manager.users.bry = import ./users/bry/home.nix;
           }
           # Add unstable neovim
