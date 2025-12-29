@@ -2,12 +2,17 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
   # nvim declared in flake to get a more updated version
   environment.systemPackages = with pkgs; [
+    clang
+    cargo
+    unzip
+    neofetch
     git
     zellij
     tmux

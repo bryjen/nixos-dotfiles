@@ -1,17 +1,17 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  copyDotfiles = source: target: config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    rm -rf ~/${target}
+    cp -r ${source} ~/${target}
+    chmod -R u+w ~/${target}
+  '';
+in
 {
   home.stateVersion = "24.05";
 
-  home.file.".config/nvim" = {
-    source = ./nvim-config;
-    recursive = true;
-    force = true;  # force writes instead of symlinking
+  home.activation = {
+    nvimConfig = copyDotfiles ./dotfiles/nvim ".config/nvim";
+    pwshConfig = copyDotfiles ./dotfiles/pwsh ".config/powershell";
   };
-
-  home.activation.nvimConfig = config.lib.dag.entryAfter ["writeBoundary"] ''
-    rm -rf ~/.config/nvim
-    cp -r ${./nvim-config} ~/.config/nvim
-    chmod -R u+w ~/.config/nvim
-  '';
 }
