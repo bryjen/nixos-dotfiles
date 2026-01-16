@@ -21,9 +21,9 @@
 
   users.defaultUserShell = pkgs.powershell;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.kernelParams = [ "video=1440x1080" ];
+  boot.loader.grub.enable = false;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   services.openssh = {
     enable = true;
